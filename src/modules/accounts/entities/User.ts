@@ -1,16 +1,13 @@
 import { v4 as uuidV4 } from "uuid"
 import { Column, Entity, PrimaryColumn } from "typeorm"
 
-@Entity()
+@Entity('users')
 class User {
   @PrimaryColumn()
   id: string
   
   @Column()
   name: string
-
-  @Column()
-  username: string;
 
   @Column()
   password: string;
@@ -23,6 +20,9 @@ class User {
 
   @Column()
   isAdmin: boolean;
+
+  @Column()
+  avatar: string;
 
   @Column()
   created_at: Date;
