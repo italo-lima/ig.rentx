@@ -10,6 +10,7 @@ class CarsRepositoryinMemory implements ICarsRepository {
     description,
     license_plate,
     daily_rate,
+    id,
     fine_amount,
     brand,
     category_id
@@ -22,6 +23,7 @@ class CarsRepositoryinMemory implements ICarsRepository {
       daily_rate,
       fine_amount,
       brand,
+      id,
       category_id
     })
 
@@ -34,6 +36,31 @@ class CarsRepositoryinMemory implements ICarsRepository {
     return this.cars.find(car => car.license_plate === license_plate)
   }
 
+  async findAvailable(
+    brand?: string,
+    category_id?: string,
+    name?: string
+  ): Promise<Car[]> {
+    const cars = this.cars
+      .filter(car => {
+        if (car.available || (
+          (brand && car.brand === brand) ||
+          (category_id && car.category_id === category_id) ||
+          (name && car.name === name)
+        )
+        ) {
+          return car
+        }
+
+        return null
+      })
+
+    return cars
+  }
+
+  async findById(id: string): Promise<Car> {
+    return this.cars.find(car => car.id === id)
+  }
 }
 
-export { CarsRepositoryinMemory } 
+export { CarsRepositoryinMemory }
