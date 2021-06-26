@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateUsers1623251197933 implements MigrationInterface {
 
@@ -9,6 +9,7 @@ export class CreateUsers1623251197933 implements MigrationInterface {
                 {
                     name: 'id',
                     type: 'uuid',
+                    isPrimary: true
                 },
                 {
                     name: "name",
@@ -41,7 +42,7 @@ export class CreateUsers1623251197933 implements MigrationInterface {
                     type: 'timestamp',
                     default: 'now()'
                 }
-                
+
             ]
         }))
     }
