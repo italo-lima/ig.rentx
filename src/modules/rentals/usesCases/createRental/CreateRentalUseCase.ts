@@ -13,7 +13,6 @@ interface IRequest {
 
 @injectable()
 class CreateRentalUseCase {
-
   constructor(
     @inject('RentalsRepository')
     private rentalRepository: IRentalsRepository,
@@ -23,15 +22,24 @@ class CreateRentalUseCase {
     private carsRepository: ICarsRepository
   ) { }
 
-  async execute({ user_id, car_id, expected_return_date }: IRequest): Promise<Rental> {
+  async execute({
+    user_id,
+    car_id,
+    expected_return_date
+  }: IRequest): Promise<Rental> {
     const miniumHour = 24
-    const carUnavailable = await this.rentalRepository.findOpenRentalByCar(car_id)
+
+    const carUnavailable = await this.rentalRepository.findOpenRentalByCar(
+      car_id
+    )
 
     if (carUnavailable) {
       throw new AppError("Car is unavailable")
     }
 
-    const rentalOpenToUser = await this.rentalRepository.findOpenRentalByUser(user_id)
+    const rentalOpenToUser = await this.rentalRepository.findOpenRentalByUser(
+      user_id
+    )
 
     if (rentalOpenToUser) {
       throw new AppError("There's a rental in progress for user!")
