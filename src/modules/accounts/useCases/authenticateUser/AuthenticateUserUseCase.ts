@@ -4,7 +4,7 @@ import { sign } from "jsonwebtoken"
 
 import { IUsersRepository } from "@modules/accounts/repositories/IUsersRepository";
 import { AppError } from "@shared/errors/AppError"
-import { IUserTokensRepository } from "@modules/accounts/repositories/IUserTokensRepository";
+import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository";
 import auth from "@config/auth"
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 
@@ -28,7 +28,7 @@ class AuthenticateUserUseCase {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
     @inject('UsersTokenRepository')
-    private userTokensRepository: IUserTokensRepository,
+    private usersTokensRepository: IUsersTokensRepository,
     @inject('DateProvider')
     private dateProvider: IDateProvider,
   ) { }
@@ -65,7 +65,7 @@ class AuthenticateUserUseCase {
 
     const refresh_token_expires_date = this.dateProvider.addDays(expires_refresh_token_days)
 
-    await this.userTokensRepository.create({
+    await this.usersTokensRepository.create({
       user_id: user.id,
       expires_date: refresh_token_expires_date,
       refresh_token

@@ -1,5 +1,5 @@
 import auth from "@config/auth"
-import { IUserTokensRepository } from "@modules/accounts/repositories/IUserTokensRepository"
+import { IUsersTokensRepository } from "@modules/accounts/repositories/IUsersTokensRepository"
 import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider"
 import { AppError } from "@shared/errors/AppError"
 import { sign, verify } from "jsonwebtoken"
@@ -15,7 +15,7 @@ class RefreshTokenUseCase {
 
   constructor(
     @inject('UsersTokenRepository')
-    private userTokensRepository: IUserTokensRepository,
+    private usersTokensRepository: IUsersTokensRepository,
     @inject('DateProvider')
     private dateProvider: IDateProvider
   ) { }
@@ -26,14 +26,14 @@ class RefreshTokenUseCase {
 
     const user_id = sub
 
-    const userToken = await this.userTokensRepository
+    const userToken = await this.usersTokensRepository
       .findByUserIdAndRefreshToken(user_id, token)
 
     if (!userToken) {
       throw new AppError("Refresh Token does not exists!")
     }
 
-    await this.userTokensRepository.deleteById(userToken.id)
+    await this.usersTokensRepository.deleteById(userToken.id)
 
     const refresh_token = sign({ email }, auth.secret_refresh_token, {
       subject: sub,
@@ -42,7 +42,7 @@ class RefreshTokenUseCase {
 
     const expires_date = this.dateProvider.addDays(auth.expires_refresh_token_days)
 
-    await this.userTokensRepository.create({
+    await this.usersTokensRepository.create({
       expires_date,
       user_id: sub,
       refresh_token
