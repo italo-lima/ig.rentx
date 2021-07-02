@@ -7,3 +7,4 @@ tmp/*
 tmp/avatar/*
 tmp/cars/*
 coverage/
+.env
