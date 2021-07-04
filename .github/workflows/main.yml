@@ -43,4 +43,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/test/rentx_api
-            yarn
+            ls
