@@ -33,6 +33,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
           target: "~/app/rentx_api"
+          
+      - uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
 
       - name: Update API
         uses: appleboy/ssh-action@master
@@ -44,4 +48,4 @@ jobs:
           script: |
             cd ~/app/rentx_api
             pwd
-            npm install
+            yarn install
