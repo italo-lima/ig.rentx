@@ -8,3 +8,4 @@ tmp/avatar/*
 tmp/cars/*
 coverage/
 .env
+dist/
