@@ -43,6 +43,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/app/rentx_api
+            pwd
             yarn 
             ./node_modules/.bin/typeorm migration:run
             pm2 restart rentx_api
