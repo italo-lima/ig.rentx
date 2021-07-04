@@ -43,7 +43,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd ~/app/api-rentx
-            yarn
       
       - name: Run Migrations
         uses: appleboy/ssh-action@master
