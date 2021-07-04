@@ -32,7 +32,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
-          target: "~/app/rentx_api"
+          target: "~/test/rentx_api"
 
       - name: Update API
         uses: appleboy/ssh-action@master
@@ -41,4 +41,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
-          script: yarn
+          script: |
+            cd ~/test/rentx_api
+            yarn
