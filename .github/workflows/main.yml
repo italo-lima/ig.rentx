@@ -43,8 +43,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }} 
           script: |
             cd ~/app/api-rentx
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
             yarn
             ./node_modules/.bin/typeorm migration:run
             pm2 restart rentx_api
